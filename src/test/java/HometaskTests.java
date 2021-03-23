@@ -1,9 +1,9 @@
-import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.CollectionCondition.itemWithText;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byAttribute;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -33,20 +33,19 @@ public class HometaskTests {
                 "}";
 
         open("https://github.com/selenide/selenide");
-        $(".UnderlineNav-body").$(byAttribute("data-content", "Wiki")).click();
-        $$("#wiki-pages-box .d-block").shouldHave(CollectionCondition.itemWithText(page));
+        $(".UnderlineNav-body").$("[data-content='Wiki']").click();
         $("#wiki-pages-box").$(byText(page)).click();
-        $$(".markdown-body .highlight").shouldHave(CollectionCondition.itemWithText(junit5Example));
+        $$(".markdown-body .highlight").shouldHave(itemWithText(junit5Example));
     }
 
     @Test
     public void dragAndDropTest() {
         open("https://the-internet.herokuapp.com/drag_and_drop");
-        $("#column-a").shouldBe(Condition.text("A"));
-        $("#column-b").shouldBe(Condition.text("B"));
+        $("#column-a").shouldBe(text("A"));
+        $("#column-b").shouldBe(text("B"));
         $("#column-a").dragAndDropTo("#column-b");
-        $("#column-a").shouldBe(Condition.text("B"));
-        $("#column-b").shouldBe(Condition.text("A"));
+        $("#column-a").shouldBe(text("B"));
+        $("#column-b").shouldBe(text("A"));
     }
 
 }
